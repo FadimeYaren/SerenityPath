@@ -51,6 +51,11 @@ header {
     outline: none;
 }
 
+#mention-button:focus-visible,
+#reset-button:focus-visible {
+    outline: none;
+}
+
 
 #mention-button:active {
     transform: scale(0.9);
