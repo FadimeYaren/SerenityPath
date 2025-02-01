@@ -46,6 +46,12 @@ header {
     transition: transform 0.1s ease;
 }
 
+#mention-button:focus,
+#reset-button:focus {
+    outline: none;
+}
+
+
 #mention-button:active {
     transform: scale(0.9);
 }
