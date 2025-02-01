@@ -53,14 +53,17 @@ header {
 
 #mention-button, 
 #reset-button {
-    outline: none !important; /* Tüm tarayıcılarda outline'ı kaldırır */
-    -webkit-tap-highlight-color: transparent; /* Mobil tarayıcılarda mavi efekti kaldırır */
+    outline: none !important; /* Tüm tarayıcılarda outline kaldırılır */
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* Mobil tarayıcılarda mavi efekti kaldırır */
     user-select: none; /* Kullanıcının öğeyi seçmesini engeller */
     touch-action: manipulation; /* Mobil cihazlarda doğal tıklama davranışı */
-    -webkit-user-select: none; /* iOS cihazlarda öğe seçimini engeller */
+    -webkit-user-select: none; /* iOS cihazlar için ekstra koruma */
     -moz-user-select: none;
     -ms-user-select: none;
+    border: 0px solid transparent; /* Tarayıcının varsayılan çerçevesini tamamen sıfırlar */
+    background-clip: padding-box; /* İç gölgelerin kenarlara taşmasını önler */
 }
+
 
 
 #reset-button {
