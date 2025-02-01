@@ -46,26 +46,22 @@ header {
     transition: transform 0.1s ease;
 }
 
-#mention-button:focus,
-#reset-button:focus {
-    outline: none;
-}
-
-#mention-button:focus-visible,
-#reset-button:focus-visible {
-    outline: none;
-}
-
-#mention-button, 
-#reset-button {
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
 
 #mention-button:active {
     transform: scale(0.9);
 }
+
+#mention-button, 
+#reset-button {
+    outline: none !important; /* Tüm tarayıcılarda outline'ı kaldırır */
+    -webkit-tap-highlight-color: transparent; /* Mobil tarayıcılarda mavi efekti kaldırır */
+    user-select: none; /* Kullanıcının öğeyi seçmesini engeller */
+    touch-action: manipulation; /* Mobil cihazlarda doğal tıklama davranışı */
+    -webkit-user-select: none; /* iOS cihazlarda öğe seçimini engeller */
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
 
 #reset-button {
     padding: 10px 20px;
