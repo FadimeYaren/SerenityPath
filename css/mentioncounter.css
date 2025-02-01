@@ -56,6 +56,12 @@ header {
     outline: none;
 }
 
+#mention-button, 
+#reset-button {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
 
 #mention-button:active {
     transform: scale(0.9);
