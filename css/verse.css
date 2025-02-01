@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+}
+
+.settings {
+    margin-bottom: 20px;
+}
+
+select, button {
+    padding: 8px;
+    margin: 5px;
+}
+
+.verse-container {
+    display: flex;
+    flex-direction: column; /* Kutu düzenini alt alta yapar */
+    align-items: center; /* Ortalamak için */
+    gap: 20px; /* Kutular arasındaki boşluğu ayarlar */
+}
+
+.verse-box {
+    width: 80%; /* Kutuların genişliğini artır */
+    max-width: 1000px; /* Çok geniş olmalarını önler */
+}
+
+
+.verse-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.verse-prev, .verse-next {
+    color: gray;
+    font-size: 14px;
+}
+
+.verse-main {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
