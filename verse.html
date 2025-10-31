@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quran Verse</title>
+    <link rel="stylesheet" href="css/verse.css">
+</head>
+<body>
+    <div class="container">
+        <div class="settings">
+            <select id="language">
+                <option value="en">English</option>
+                <option value="tr">Türkçe</option>
+            </select>
+
+            <select id="surahSelect">
+                <option value="all">All</option>
+            </select>
+
+            <button id="randomVerse">Get Random Verse</button>
+        </div>
+
+        <div class="verse-container">
+            <div class="verse-box">
+                <p class="verse-title"></p>
+                <p class="verse-prev"></p>
+                <p class="verse-main"></p>
+                <p class="verse-next"></p>
+            </div>
+            <div class="verse-box">
+                <p class="verse-title"></p>
+                <p class="verse-prev"></p>
+                <p class="verse-main"></p>
+                <p class="verse-next"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/verse.js"></script>
+</body>
+</html>
