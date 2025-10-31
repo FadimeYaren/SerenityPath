@@ -14,15 +14,26 @@ const statusBox = document.getElementById('status');
 
 let cached = { tr: null, en: null, ar: null };
 
+function resolveUrl(relPath) {
+  // Sayfanın kök dizinine göre tam URL üretir
+  const base = new URL('.', window.location.href);
+  return new URL(relPath, base).toString();
+}
+
+
 async function loadLanguage(lang) {
   if (cached[lang]) return cached[lang];
-  const url = DATA_FILES[lang];
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Veriye erişilemedi: ${res.status}`);
+  const url = resolveUrl(DATA_FILES[lang]);
+  const bust = `${url}${url.includes('?') ? '&' : '?'}v=${Date.now()}`; // önbellek engelle
+  const res = await fetch(bust, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`Veriye erişilemedi (${lang}): ${res.status} ${res.statusText}\nURL: ${url}`);
+  }
   const data = await res.json();
   cached[lang] = data;
   return data;
 }
+
 
 function fillSurahList(langData) {
   surahSelect.innerHTML = '';
