@@ -1,8 +1,8 @@
-
 // Load local Quran JSON files and render a full surah in the selected language.
 const DATA_FILES = {
   tr: 'data/quran_tr.json',
-  en: 'data/quran_en.json'
+  en: 'data/quran_en.json',
+  ar: 'data/quran_ar.json'
 };
 
 const languageSelect = document.getElementById('language');
@@ -12,7 +12,7 @@ const info = document.getElementById('info');
 const errorBox = document.getElementById('error');
 const statusBox = document.getElementById('status');
 
-let cached = { tr: null, en: null };
+let cached = { tr: null, en: null, ar: null };
 
 async function loadLanguage(lang) {
   if (cached[lang]) return cached[lang];
@@ -24,23 +24,20 @@ async function loadLanguage(lang) {
   return data;
 }
 
-function fillSurahList(langData, preferLang) {
-  // Reset
+function fillSurahList(langData) {
   surahSelect.innerHTML = '';
   langData.forEach((s, idx) => {
     const opt = document.createElement('option');
-    // Use two-language display if available: e.g., "1 — Fatiha / al-Fatihah"
     const number = parseInt(s.index, 10);
-    const nameLocal = s.name;
     opt.value = number;
-    opt.textContent = `${number} — ${nameLocal}`;
+    opt.textContent = `${number} — ${s.name}`;
     surahSelect.appendChild(opt);
   });
-  // Default select: Fatiha
   surahSelect.value = 1;
 }
 
-function renderSurah(surahObj) {
+function renderSurah(surahObj, lang) {
+  document.body.setAttribute('lang', lang);
   output.innerHTML = '';
   const title = document.createElement('h2');
   title.textContent = `${parseInt(surahObj.index,10)} — ${surahObj.name}`;
@@ -49,8 +46,6 @@ function renderSurah(surahObj) {
   const count = surahObj.count;
   info.textContent = `Âyet sayısı: ${count}`;
 
-  // Basmala handling: many JSONs include verse_1 as full text already.
-  // We'll simply render each ayah in order.
   const verses = surahObj.verse;
   const keys = Object.keys(verses).sort((a,b)=>{
     const na = parseInt(a.split('_')[1],10);
@@ -64,7 +59,7 @@ function renderSurah(surahObj) {
     p.className = 'ayah';
     const num = document.createElement('span');
     num.className = 'num';
-    num.textContent = n + ')';
+    num.textContent = n + ') ';
     const txt = document.createElement('span');
     txt.textContent = verses[k];
     p.appendChild(num);
@@ -78,9 +73,8 @@ async function init() {
     statusBox.style.display = 'inline';
     const lang = languageSelect.value;
     const data = await loadLanguage(lang);
-    fillSurahList(data, lang);
-    // Render default (Fatiha)
-    renderSurah(data[0]);
+    fillSurahList(data);
+    renderSurah(data[0], lang);
   } catch (e) {
     errorBox.textContent = e.message;
     errorBox.style.display = 'block';
@@ -96,8 +90,8 @@ document.getElementById('loadBtn').addEventListener('click', async () => {
     const lang = languageSelect.value;
     const data = await loadLanguage(lang);
     const idx = parseInt(surahSelect.value, 10);
-    const surahObj = data[idx - 1]; // zero-based
-    renderSurah(surahObj);
+    const surahObj = data[idx - 1];
+    renderSurah(surahObj, lang);
   } catch (e) {
     errorBox.textContent = e.message;
     errorBox.style.display = 'block';
@@ -107,9 +101,7 @@ document.getElementById('loadBtn').addEventListener('click', async () => {
 });
 
 languageSelect.addEventListener('change', async () => {
-  // Reload list & preview first surah on language change
   await init();
 });
 
-// Kickoff
 init();
